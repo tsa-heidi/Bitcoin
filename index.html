@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bitcoin is NP-Hard</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="icon" href="" sizes="16x16" type="image/png">
+  <style type="text/css">
+  h1 {
+    color:black;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 90px;
+  }
+  body{
+    background-color: white;/*#48C9B0;*/
+    margin: 100px;
+  }
+  h2{
+    Color: black;
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    margin-top: 200px;
+    text-decoration: underline;
+  }
+
+  h3{
+    font-size: 30px;
+    text-align: left;
+    margin-left: 50px;
+  }
+  h4{
+    font-size: 25px;
+    text-align: left;
+    margin-left: 80px;
+  }
+  p{
+    margin-left:80px;
+    margin-right:80px;
+  }
+  div.a {
+    text-indent: 50px;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+  </style>
+</head>
+<body>
+  <h1>Bitcoin is NP-hard</h1>
+  <img src = "https://themerkle.com/wp-content/uploads/2017/07/shutterstock_608089037.jpg" class="center">
+  <h2>Background</h2>
+    <h3>What is Bitcoin?</h3>
+      <div class="a">
+      <div class="a">
+      <p>Bitcoin is a decentralized, as in there are no banks, digital cryptocurrency. It was created in 2009 by Satoshi Nakamoto. However, who Satoshi Nakamoto really is remains a mystery as the name is a pseudonym.
+      </p>
+      </div>
+
+    <h3>How does Bitcoin work?</h3>
+      <div class="a">
+      <p>Imagine the bitcoin network as a ledger that keep track of how much each user owns. Let say we have Alice, Bob and Casey, theses names will not be public in real life of course.
+If Casey want to purchase a computer from Alice, Casey will just send the money over to Alice's account and Alice will ship the computer. However, sendin­g bitcoin is more complicated than just that. To make sure that the transaction is actually made by casey, we will need a signature from her. When Casey made her bitcoin account, a private key is also made that is mathematically linked to her account number. The account number is public but the private key is not.To make the digital signature, we will take the transaction and the private key from casey and encrypt them mathematically.  Then if someone wants to check this signature, we just use the transaction, the signature and the public account number. So without the actually knowing the private key, we can check if it was actually casey who made this purchase. And this signature also cannot be reused since its linked to this specific transaction.­Previously, we said that making a transaction is just like updating the ledger. There's actually no ledger that track everyone’s current balance, instead, When casey needs to pay alice 5 bitcoins, the system trace back to every transactions made in history to make sure that someone made a payment to casey, so she has enough bitcoins to alice. Let say bob paid casy 6 bitcoins 2 years ago, since there is no exact 5 bitcoins transaction in casey’s history, she will send that 6 bitcoins transaction from bob and then send 1 bitcoin back to herself. And the 6 bitcoin transaction is now considered used and cannot be used again.
+      </p>
+      </div>
+
+    <h3>Bitcoin and Blockchain Technology</h3>
+      <h4>What really is the “Ledger” in Bitcoin? </h4>
+        <div class="a">
+          <p>For security, everyone needs to agree on the order that transactions are made. So, they came up with a process to do this called the Blockchain, and this is what really makes up the “ledger” of transactions every miner has.
+          </p>
+          <img src = "https://cdn-images-1.medium.com/max/2000/1*2yGwYXgCvLcZl3MoW044tg.png" class="center">
+        </div>
+      <h4>How does a single transaction get to the Block Chain?</h4>
+        <div class="a"><p>When you make a transaction, it goes into the “cloud” of unconfirmed transactions. Miners then choose transactions from this cloud, and each miner constructs their own block of unconfirmed transactions, each proposing that theirs should be the next block in the chain.The block chain is made up of tons of these blocks full of transactions, chained together. Each one references the previous one, to explicitly show what order they’re in. When the miners make their block of new, unconfirmed transactions, they’re each trying to get their block to be the next/newest in the chain. If a miner is able to get their block added to the end of the chain, they get rewarded with bitcoin in addition to whatever transaction fees were associated with the transactions they included in their block. This bitcoin reward is what miners are after, and is what it means to “mine bitcoin”.
+        </div><p>
+    <h2>The Proof</h2>
+      <div class="a">
+      <p>We looked into why mining bitcoin is NP-hard, as outlined by Joseph Bonneau’s paper appropriately titled “Bitcoin Mining is NP-hard.” However, after reading through the paper, we found that it seems to more accurate to say that being an optimal bitcoin miner is NP-hard. This is because every part of the paper assumes that when a miner is assembling their block, they’re trying to build it with it having the greatest amount of transaction fees possible, but within that one block’s 1 MB size limit. This then makes building a block an optimization problem, which turns out to have two parts of it that are NP-hard—first, constructing the blocks themselves, and second, constructing the blocks without any conflicting transactions.
+      </p>
+      </div>
+        <h3>Constructing a block</h3>
+          <div class="a">
+          <p>So, miners are trying to solve the problem of selecting the set of transactions with the greatest total transaction fees, but still below the 1MB limit that a block has. To show this is NP-hard, we do a reduction from the classic knapsack problem, in which finding the optimal solution is known to be NP-hard. The knapsack problem is where you want to fill a knapsack with limited weight capacity, with the most valuable set of items possible, where the items have varying weight and value. Building an optimal bitcoin block is just like this problem, with each item being a transaction, its size and transaction fee being equivalent to an items weight and value, and finally, the 1MB size limit of the block being the same as the weight capacity of the knapsack. Thus, building an optimal block is NP-hard.
+          </p>
+          </div>
+        <h3>Constructing a block without any conflicting transactions</h3>
+          <div class="a">
+          <p>For simplicity’s sake, we ignore block size limit and assume a constant transaction fee. Recall that when you make a transaction using bitcoin, it refers back to past ones to confirm you have the correct amount. It then marks that past transaction as “used”, and it can’t be referred to again. This makes sense because if it was able to be referenced  more than once, it would essentially double spend that bitcoin. Conflicting transactions are defined as 2 or more transactions that all attempt to refer to the same past transaction to claim that amount of bitcoin. Only 1 of the conflicting transactions can be verified and published in the blockchain.
+	With that information, we will essentially do a reduction from the maximum independent set problem to show this is NP-hard. Recall that the maximum independent set problem is to find the largest set of vertices with no edges between them. From this, we can draw a graph of all transactions (each transaction being a node), and then draw edges between transactions that conflict. With this graph of transactions we constructed, it is the miners’ job to try to find the largest amount of transactions with no edges between them—i.e. with no conflict. It is clear to see this is just like the maximum independent set problem, and thus constructing a block with no conflicting transactions is NP-hard.
+          </p>
+          </div>
+  <h2>Discussion</h2>
+    <h3>Overall Evaluation</h3>
+      <div class="a">
+        <p>Because miners get a specific bitcoin reward in addition to transaction fees, they have very little incentive to fully optimize their blocks. Thus, this problem is not currently critical to understanding bitcoin mining and simply shows that mining can be NP-Hard. In 2140, this will change, new bitcoins will no longer be created by miners moving blocks forward, and incentives to optimize transaction fees will increase. However, this also does not necessarily mean that miniers will fully optimize their blocks. They could chose to implement lower levels of optimization.
+Regardless of how much optimization miners implement, it will likely lead to an increase in transaction fees. Because the sender in the transaction is the one to set the transaction fee, and miners are not optimizing their blocks, transaction fees are currently very low. After 2140, the market price for transaction fees is likely to increase, because miners will be less likely to add transactions with low transaction fees to their blocks.
+Although it takes less time for a large transaction to be verified in bitcoin, it still takes about an hour. This buffer time is caused by the standard practice to wait until a transaction is in a block six blocks deep in the blockchain until it is verified. As it takes about ten minutes for a block to be put through, it normally takes an hour for a transaction to be six blocks deep in the chain. This practice was put in place because of the security risk of someone taking control of the most recent blocks added to the chain. The specific amount was suggested because so far that is the largest number of blocks one person/group was able to put through in a row.
+    </p>
+    </div>
+    <h3>Key Contribution of Miners</h3>
+    <div class="a">
+      <p>
+    I want to talk about the key contribution of the Miners themselves! This isn’t directly related to the fact that Bitcoin mining is NP hard. However, I think it is important to note that the miners are the ones that provide the key service of network security in this system. The higher the network’s hashrate is, the safter the network is against bad actors who may want to try -- disrupt the ledger by falsifying their transactions!  Network's hashrate is the most important data point in blockchain tech. It shows to the world how secure the network is, and basically, the hashrate describes how much computing power is being thrown at the network, by users all across the world. Since the network hashrate is tied to the amount of users around the world, the miners as well as people sending and receiving money contribute to this number.
+    </p>
+    </div>
+    <h3>So, Why did we Choose This Topic?</h3>
+      <h4> 1. Decentralization</h4>
+        <div class="a">
+        <p>Since bitcoin is the first decentralized cryptocurrency I thought investigating how the Bitcoin blockchain technology works would be a good start to understanding the concept of decentralization and blockchain. The Bitcoin miners and mining process is what ensures that the system is decentralized and what makes the system more secure, so we thought that the complexity theory behind bitcoin mining must be important.
+        </p>
+        <img src = "https://netivist.org/uploads/forum/discussions/pictures/55e4471855f4f71b841874e8/centralization-vs-decentralization-xl.jpg" class="center">
+        <p>Decentralization basically means that the system lets you do transactions without a centralized power such as a private bank or the government. Since transactions are peer to peer and Individual miners are the ones facilitating all the transactions for bitcoin, Bitcoin is decentralized.
+          Bitcoin’s implementation of blockchain allows for a lot of freedom and efficiency, qualities that are valued very highly in this day. Decentralization gives the individual a lot more power than in other systems that rely on a larger centralized power.
+        </p>
+        </div>
+      <h4>2. Transaction Fees</h4>
+        <div class="a">
+        <p>Also, when it comes to transaction fees, especially for larger payments such as buying a house of buying a flight ticket, the transaction fees are generally cheaper.
+        </p>
+        </div>
+      <h4>3. Global</h4>
+        <div class="a">
+        <p>Bitcoin allows for international payments to become easier, since there are no restrictions set by governments of different nations. For me, personally, as an international student, I’m very aware that many payments are dependent on currency exchange rates, and it may take up to two or three days to process larger payments like tuition. Generally, payments dependent on blockchain would let you do these global transactions at a much faster rate.
+        </p>
+        </div>
+      <h4>**The Lightning Network?**</h4>
+        <div class="a">
+        <p>I am aware that people are worried about the transaction fees maybe being a bit more or the payments taking too long for smaller payments. For example, if someone were to buy a slice of pizza, the cost would be very small and wouldn’t make sense for it to have any kind of transaction fee. A newly launched solution to this scalability issue is the lighting network. The lightning network is a second layer system built upon the bitcoin layer that allows micropayments of bitcoin- as small as a dollar cent equivalent - to be processed within a second. You can read more about this project <a href="https://lightning.network/">here</a>.
+        </p>
+        </div>
+      <h4>4. Business </h4>
+        <div class="a">
+        <p>Also, another big part of our interest in bitcoin mining comes from our interest in business. There has been a lot of news articles coming up revolving around blockchain technology and bitcoin, and we wanted to really understand how it works to be able to keep up with current news. From a venture capital perspective, we wanted to be able to understand how mining and blockchain works to understand how new blockchain businesses are implementing the technology.
+        </p>
+        </div>
+  <h2>Contributions</h2>
+    <div class="a">
+    <p>We formed our group to conduct research on how Bitcoin, the Blockchain, and the complexity theory behind Bitcoin Mining. We combined our interests in the topic to conduct the overall research together, helped each other understand the concept and how it really works, by clarifying misunderstandings for each other and breaking down the process of bitcoin mining for its complexity analysis. Heidi and Mae compiled the slides for the background information for the powerpoint presentation, and Joarvi compiled the section on the proof of why Bitcoin mining is NP-hard, and Mae and Julie made the slides for why the outcome of our analysis is important - by tying it back to real world implications. After organizing all the sections of our research as a presentation, we also wrote this blogpost and Heidi assembled it to make a web page.
+    </p>
+    </div>
+  <h2>References</h2>
+    <ol>
+      <li><a href="https://freedom-to-tinker.com/2014/10/27/bitcoin-mining-is-np-hard/">https://freedom-to-tinker.com/2014/10/27/bitcoin-mining-is-np-hard/</a></li>
+      <li><a href="https://www.applancer.com/blog/differences-between-bitcoin-mining-and-ethereum-mining">https://www.applancer.com/blog/differences-between-bitcoin-mining-and-ethereum-mining</a>
+</li>
+      <li><a href="https://www.youtube.com/watch?v=l9jOJk30eQs">https://www.youtube.com/watch?v=l9jOJk30eQs</a></li>
+      <li><a href="http://www.atmos.umd.edu/~ide/data/teaching/amsc663/14fall/amsc663_14midyearreport_stefan_poikonen.pdf">http://www.atmos.umd.edu/~ide/data/teaching/amsc663/14fall/amsc663_14midyearreport_stefan_poikonen.pdf</a>
+      </li>
+      <li><a href="https://www.bitcoinmining.com/faq/#what-does-hashing-mean">https://www.bitcoinmining.com/faq/#what-does-hashing-mean</a></li>
+    </ol>
+
+
+</body>
+</html>
